@@ -24,7 +24,7 @@ class rgba_color
 		rgba_color(const rgba_color& other) = default;
 		
 		/**
-		 * @brief the default assignement-ctor
+		 * @brief the default assignement-function
 		 * @param other an already existing instance that will be copied
 		 */
 		rgba_color& operator=(const rgba_color& other) = default;
