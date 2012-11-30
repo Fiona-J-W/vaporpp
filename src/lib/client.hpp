@@ -69,7 +69,7 @@ class client {
 		std::unique_ptr<client_impl> _impl;
 };
 
-}
+}//namespace vlpp
 
 
 #endif // CLIENT_HPP

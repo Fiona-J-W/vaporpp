@@ -42,6 +42,19 @@ std::vector<uint16_t> str_to_ids(const std::string& str){
 			throw std::invalid_argument("invalid range");
 		}
 	}
-	
+	if(!current_word.empty()){
+		if(in_range){
+			uint16_t upper_bound =  (uint16_t)std::stoul(current_word);
+			if(upper_bound < tmp_id){
+				throw std::invalid_argument("invalid range");
+			}
+			for(uint16_t i = tmp_id; i <= upper_bound; ++i){
+				returnlist.push_back(i);
+			}
+		}
+		else{
+			returnlist.push_back((uint16_t)std::stoul(current_word));
+		}
+	}
 	return returnlist;
 }

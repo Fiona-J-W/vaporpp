@@ -9,6 +9,7 @@ using boost::asio::io_service;
 using boost::asio::ip::tcp;
 
 
+//pimpl-class (private members of client):
 class vlpp::client::client_impl {
 public:
 	client_impl(const std::string& servername, const std::string& token, uint16_t port);
@@ -17,6 +18,7 @@ public:
 	void execute();
 	io_service _io_service;
 	tcp::socket _socket;
+	std::vector<char> cmd_buffer;
 };
 
 ///////////
@@ -41,6 +43,7 @@ void vlpp::client::set_leds(const std::vector<uint16_t> &led_ids, const rgba_col
 }
 
 void vlpp::client::execute() {
+	_impl->execute();
 }
 
 
@@ -79,25 +82,19 @@ void vlpp::client::client_impl::authenticate(const std::string &token) {
 }
 
 void vlpp::client::client_impl::set_led(uint16_t led, rgba_color col) {
-	boost::system::error_code e;
-	std::array<char, 7> data;
-	data[0] = 0x01;
-	data[1] = (char)(led >> 8);
-	data[2] = (char)(led & 0xff);
-	data[3] = (char)(col.r);
-	data[4] = (char)(col.g);
-	data[5] = (char)(col.b);
-	data[6] = (char)(col.alpha);
-	boost::asio::write(_socket, boost::asio::buffer(&(data[0]), data.size()), e);
-	if(e){
-		throw std::runtime_error("write failed");
-	}
+	cmd_buffer.push_back((char)0x01);
+	cmd_buffer.push_back((char)(led >> 8));
+	cmd_buffer.push_back((char)(led & 0xff));
+	cmd_buffer.push_back((char)col.r);
+	cmd_buffer.push_back((char)col.g);
+	cmd_buffer.push_back((char)col.b);
+	cmd_buffer.push_back((char)col.alpha);
 }
 
 void vlpp::client::client_impl::execute() {
-	const char opcode = (char)0xff;
+	cmd_buffer.push_back((char)0xff);
 	boost::system::error_code e;
-	boost::asio::write(_socket, boost::asio::buffer(&opcode, 1), e);
+	boost::asio::write(_socket, boost::asio::buffer(&(cmd_buffer[0]), cmd_buffer.size()), e);
 	if(e){
 		throw std::runtime_error("write failed");
 	}
