@@ -87,7 +87,7 @@ int main(int argc, char**argv){
 			}
 			catch(std::runtime_error& e){
 				std::cerr << "Error: " << e.what() << std::endl;
-				break;
+				return 1;
 			}
 		}
 		else if(cmd.first == "quit"){
