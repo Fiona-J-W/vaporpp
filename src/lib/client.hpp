@@ -51,7 +51,6 @@ class client {
 		 * @brief Sets a list of LEDs to a specific color.
 		 * @param led_ids the IDs of the LEDs
 		 * @param col the new color of the LEDs
-		 * @throws std::runtime_error if a write fails
 		 */
 		void set_leds(const std::vector<uint16_t>& led_ids, const rgba_color& col);
 		
