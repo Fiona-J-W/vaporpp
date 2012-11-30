@@ -5,6 +5,12 @@
 #include <utility>
 #include <vector>
 
+
+/**
+ * @brief initialize readline. Call this once before you use readln
+ */
+void init_readln();
+
 /**
  * @brief c++-wrapper for GNU-readline
  * @param line a reference to string that will be used to save the read line

@@ -1,17 +1,39 @@
 #include "console.hpp"
 
+#include <cstring>
 #include <sstream>
 #include <stdexcept>
 
 #include <readline/readline.h>
+#include <readline/history.h>
+
+void init_readln(){
+	using_history();
+}
 
 bool readln(std::string& line,const std::string& prompt) {
+	static char * last_cmd = nullptr;
 	char * tmp = readline(prompt.c_str());
 	if(!tmp){
 		return false;
 	}
+	
 	line = tmp;
-	free(tmp);
+	
+	if(*tmp && last_cmd){
+		//don't safe duplicates:
+		if(strcmp(tmp, last_cmd)){
+			add_history(tmp);
+		}
+	}
+	else if(!last_cmd){
+		add_history(tmp);
+	}
+	if(last_cmd){
+		free(last_cmd);
+	}
+	last_cmd = tmp;
+	
 	return true;
 }
 

@@ -43,7 +43,7 @@ int main(int argc, char**argv){
 	vlpp::client client(server, token, port);
 	
 	string line;
-	while(readln(line, "> ")){
+	while(readln(line, "-> ")){
 		boost::algorithm::trim(line);
 		if(line.empty()){
 			continue;
