@@ -22,7 +22,7 @@ class client {
 		/**
 		 * @brief the default port
 		 */
-		static const uint16_t DEFAULT_PORT = 7534;
+		enum: uint16_t{ DEFAULT_PORT = 7534 };
 		
 		/**
 		 * @brief Constructs an instance, connects to the specified server and authenticates there.

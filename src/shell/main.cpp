@@ -24,7 +24,7 @@ int main(int argc, char**argv){
 			("verbose,v", "be verbose")
 			("token,t", bpo::value<std::string>(&token), "sets the authentication-token" )
 			("server,s", bpo::value<std::string>(&server), "sets the servername")
-			("port, p", bpo::value<uint16_t>(&port)->default_value(1111), "sets the server-port");
+			("port, p", bpo::value<uint16_t>(&port)->default_value(vlpp::client::DEFAULT_PORT), "sets the server-port");
 	
 	bpo::variables_map vm;
 	bpo::store(bpo::parse_command_line(argc, argv, desc) ,vm);
