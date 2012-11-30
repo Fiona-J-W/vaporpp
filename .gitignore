@@ -1,4 +1,4 @@
 CMakeLists.txt.user
 bin
 build
-lib
+/lib
