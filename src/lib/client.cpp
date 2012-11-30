@@ -123,6 +123,7 @@ void vlpp::client::client_impl::execute() {
 	cmd_buffer.push_back((char)OP_STROBE);
 	boost::system::error_code e;
 	boost::asio::write(_socket, boost::asio::buffer(&(cmd_buffer[0]), cmd_buffer.size()), e);
+	cmd_buffer.clear();
 	if (e) {
 		throw std::runtime_error("write failed");
 	}
