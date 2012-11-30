@@ -1,16 +1,16 @@
 /*
  *  This file is part of vaporpp.
- *  
+ *
  *  vaporpp is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
- *  
+ *
  *  vaporpp is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *  
+ *
  *  You should have received a copy of the GNU General Public License
  *  along with vaporpp.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -43,7 +43,7 @@ bool readln(std::string& line, const std::string& prompt);
  * @param cmd the command from the commandline
  * @return a pair of the primary command and a list of the arguments
  */
-std::pair< std::string, std::vector< std::string > > parse_cmd(const std::string& cmd, 
+std::pair< std::string, std::vector< std::string > > parse_cmd(const std::string& cmd,
 	const std::map<std::string, std::string>& argmap = {{}});
 
 #endif // READLN_HPP
