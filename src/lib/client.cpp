@@ -39,6 +39,14 @@ public:
 	std::vector<char> cmd_buffer;
 };
 
+
+//opcodes:
+enum: uint8_t{
+	OP_SET_LED = 0x01,
+	OP_AUTHENTICATE = 0x02,
+	OP_STROBE = 0xFF
+};
+
 ///////////
 
 
@@ -88,7 +96,7 @@ vlpp::client::client_impl::client_impl(const std::string &servername, const std:
 void vlpp::client::client_impl::authenticate(const std::string &token) {
 	assert(token.length() == 16);
 	std::array<char,17> auth_data;
-	auth_data[0] = 0x02;
+	auth_data[0] = OP_AUTHENTICATE;
 	for(size_t i = 0; i<16; ++i) {
 		auth_data[i+1] = (char)token[i];
 	}
@@ -100,7 +108,7 @@ void vlpp::client::client_impl::authenticate(const std::string &token) {
 }
 
 void vlpp::client::client_impl::set_led(uint16_t led, rgba_color col) {
-	cmd_buffer.push_back((char)0x01);
+	cmd_buffer.push_back((char)OP_SET_LED);
 	cmd_buffer.push_back((char)(led >> 8));
 	cmd_buffer.push_back((char)(led & 0xff));
 	cmd_buffer.push_back((char)col.r);
@@ -110,7 +118,7 @@ void vlpp::client::client_impl::set_led(uint16_t led, rgba_color col) {
 }
 
 void vlpp::client::client_impl::execute() {
-	cmd_buffer.push_back((char)0xff);
+	cmd_buffer.push_back((char)OP_STROBE);
 	boost::system::error_code e;
 	boost::asio::write(_socket, boost::asio::buffer(&(cmd_buffer[0]), cmd_buffer.size()), e);
 	if(e){
