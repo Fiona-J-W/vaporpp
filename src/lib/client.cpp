@@ -47,6 +47,8 @@ enum: uint8_t{
 	OP_STROBE = 0xFF
 };
 
+enum{ TOKEN_SIZE = 16 };
+
 ///////////
 
 
@@ -55,7 +57,6 @@ vlpp::client::client(const std::string &server, const std::string &token, uint16
 }
 
 vlpp::client::~client() {
-	
 }
 
 void vlpp::client::set_led(uint16_t led_id, const rgba_color &col) {
@@ -79,7 +80,7 @@ void vlpp::client::execute() {
 vlpp::client::client_impl::client_impl(const std::string &servername, const std::string &token, uint16_t port):
 	_socket(_io_service) {
 	//first check the token:
-	if( token.length() != 16 ) {
+	if( token.length() != TOKEN_SIZE ) {
 		throw std::invalid_argument("invalid token (wrong size)");
 	}
 	
@@ -94,10 +95,10 @@ vlpp::client::client_impl::client_impl(const std::string &servername, const std:
 }
 
 void vlpp::client::client_impl::authenticate(const std::string &token) {
-	assert(token.length() == 16);
-	std::array<char,17> auth_data;
+	assert(token.length() == TOKEN_SIZE);
+	std::array<char,TOKEN_SIZE> auth_data;
 	auth_data[0] = OP_AUTHENTICATE;
-	for(size_t i = 0; i<16; ++i) {
+	for(size_t i = 0; i < TOKEN_SIZE; ++i) {
 		auth_data[i+1] = (char)token[i];
 	}
 	boost::system::error_code e;

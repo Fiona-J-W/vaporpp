@@ -56,7 +56,10 @@ bool readln(std::string& line,const std::string& prompt) {
 }
 
 
-std::pair< std::string, std::vector< std::string > > parse_cmd(const std::string& cmd){
+std::pair< std::string, std::vector< std::string > > parse_cmd(
+		const std::string& cmd, 
+		const std::map<std::string, std::string>& argmap
+){
 	using std::string;
 	std::istringstream stream(cmd);
 	string primary_command;
@@ -64,6 +67,10 @@ std::pair< std::string, std::vector< std::string > > parse_cmd(const std::string
 		throw std::invalid_argument("empty commandline cannot be parsed");
 	}
 	stream >> primary_command;
+	auto tmp_it = argmap.find(primary_command);
+	if(tmp_it != argmap.end()){
+		primary_command = tmp_it->second;
+	}
 	
 	std::vector<std::string> args;
 	std::string tmp;

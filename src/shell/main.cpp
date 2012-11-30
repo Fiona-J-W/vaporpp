@@ -19,6 +19,7 @@
 #include <cstdint>
 #include <iostream>
 #include <stdexcept>
+#include <map>
 
 #include <boost/algorithm/string.hpp>
 #include <boost/program_options.hpp>
@@ -61,12 +62,16 @@ int main(int argc, char**argv){
 	vlpp::client client(server, token, port);
 	
 	string line;
+	std::map<string, string> argmap{
+		{"s", "set"},
+		{"q", "quit"}
+	};
 	while(readln(line, "-> ")){
 		boost::algorithm::trim(line);
 		if(line.empty()){
 			continue;
 		}
-		auto cmd = parse_cmd(line);
+		auto cmd = parse_cmd(line, argmap);
 		
 		if(cmd.first == "set"){
 			if(cmd.second.size() != 2){

@@ -22,6 +22,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <map>
 
 
 /**
@@ -42,6 +43,7 @@ bool readln(std::string& line, const std::string& prompt);
  * @param cmd the command from the commandline
  * @return a pair of the primary command and a list of the arguments
  */
-std::pair< std::string, std::vector< std::string > > parse_cmd(const std::string& cmd);
+std::pair< std::string, std::vector< std::string > > parse_cmd(const std::string& cmd, 
+	const std::map<std::string, std::string>& argmap = {{}});
 
 #endif // READLN_HPP
