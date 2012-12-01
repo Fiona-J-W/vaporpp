@@ -24,11 +24,18 @@
 #include "../lib/client.hpp"
 
 /**
- * @brief set_leds
+ * @brief Adds commands to set the given leds to the given color to the buffer. 
+ * @note This wont flush the buffer!
  * @param cl A refercence to the conncection-client
  * @param leds a string that contains describes the leds to be set
  * @param color a string that describes a color
  */
 void set_leds(vlpp::client& cl, const std::string& leds, const std::string& color);
+
+
+/**
+ * @brief Prints a help-message for the commandline.
+ */
+void print_cli_help();
 
 #endif // COMMANDS_HPP

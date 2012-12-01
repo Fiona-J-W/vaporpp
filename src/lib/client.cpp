@@ -33,7 +33,7 @@ class vlpp::client::client_impl {
 		client_impl(const std::string& servername, const std::string& token, uint16_t port);
 		void authenticate(const std::string& token);
 		void set_led(uint16_t led, rgba_color col);
-		void execute();
+		void flush();
 		io_service _io_service;
 		tcp::socket _socket;
 		std::vector<char> cmd_buffer;
@@ -70,8 +70,8 @@ for (auto led: led_ids) {
 	}
 }
 
-void vlpp::client::execute() {
-	_impl->execute();
+void vlpp::client::flush() {
+	_impl->flush();
 }
 
 
@@ -119,7 +119,7 @@ void vlpp::client::client_impl::set_led(uint16_t led, rgba_color col) {
 	cmd_buffer.push_back((char)col.alpha);
 }
 
-void vlpp::client::client_impl::execute() {
+void vlpp::client::client_impl::flush() {
 	cmd_buffer.push_back((char)OP_STROBE);
 	boost::system::error_code e;
 	boost::asio::write(_socket, boost::asio::buffer(&(cmd_buffer[0]), cmd_buffer.size()), e);

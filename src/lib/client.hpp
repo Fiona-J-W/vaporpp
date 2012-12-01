@@ -76,7 +76,7 @@ class client {
 		 * @brief execute the sent commands
 		 * @throws std::runtime_error if the write fails
 		 */
-		void execute();
+		void flush();
 		
 		
 	private:

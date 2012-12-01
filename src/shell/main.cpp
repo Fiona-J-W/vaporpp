@@ -64,7 +64,10 @@ int main(int argc, char**argv) {
 	string line;
 	std::map<string, string> argmap {
 		{"s", "set"},
-		{"q", "quit"}
+		{"a", "add"},
+		{"q", "quit"},
+		{"h", "help"},
+		{"f", "flush"}
 	};
 	while (readln(line, "-> ")) {
 		boost::algorithm::trim(line);
@@ -73,13 +76,17 @@ int main(int argc, char**argv) {
 		}
 		auto cmd = parse_cmd(line, argmap);
 		
-		if (cmd.first == "set") {
+		if (cmd.first == "set" || cmd.first == "add") {
 			if (cmd.second.size() != 2) {
-				std::cerr << "Error: “set” takes exactly two arguments" << std::endl;
+				std::cerr << "Error: “"<< cmd.first 
+					  << "” takes exactly two arguments" << std::endl;
 				continue;
 			}
 			try {
 				set_leds(client, cmd.second[0], cmd.second[1]);
+				if(cmd.first == "set") {
+					client.flush();
+				}
 			}
 			catch
 				(std::invalid_argument& e) {
@@ -92,13 +99,18 @@ int main(int argc, char**argv) {
 				return 1;
 			}
 		}
-		else
-			if (cmd.first == "quit") {
-				break;
-			}
-			else {
-				std::cerr << "Error: unknown command: “" << cmd.first << "”" << std::endl;
-			}
+		else if(cmd.first == "flush"){
+			client.flush();
+		}
+		else if(cmd.first == "help"){
+			print_cli_help();
+		}
+		else if (cmd.first == "quit") {
+			break;
+		}
+		else {
+			std::cerr << "Error: unknown command: “" << cmd.first << "”" << std::endl;
+		}
 	}
 	
 	return 0;

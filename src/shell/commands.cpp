@@ -15,6 +15,7 @@
  *  along with vaporpp.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <iostream>
 
 #include "commands.hpp"
 
@@ -25,5 +26,19 @@
 void set_leds(vlpp::client& cl, const std::string& leds, const std::string& color) {
 	vlpp::rgba_color col(color);
 	cl.set_leds(str_to_ids(leds), col);
-	cl.execute();
+}
+
+void print_cli_help(){
+	std::cout << "Commands: \n\n"
+		     "set|s <LEDs> <rgba-colorcode>\n"
+		     "\tsets the leds to a specific color\n"
+		     "add|a <LEDs> <rgba-colorcode>\n"
+		     "\tbuffers commands to set some leds to a color\n"
+		     "flush|f\n"
+		     "\texecutes the buffered commands\n"
+		     "quit|q\n"
+		     "\tquit the programm\n"
+		     "help|h\n"
+		     "\tprint this help\n"
+		<< std::endl;
 }
