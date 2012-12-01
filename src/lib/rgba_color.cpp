@@ -41,8 +41,7 @@ vlpp::rgba_color::rgba_color(std::string colorcode) {
 			g = hex_to_byte(colorcode[2], colorcode[3]);
 			b = hex_to_byte(colorcode[4], colorcode[5]);
 			break;
-		default
-				:
+		default:
 			throw std::invalid_argument("invalid colorcode");
 	}
 }
