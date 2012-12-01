@@ -59,14 +59,14 @@ uint8_t hex_to_byte(char highbyte, char lowbyte) {
 		returnval = ((unsigned char)highbyte - '0') * 0x10;
 	}
 	else {
-		returnval = (10 + (unsigned char)highbyte -'a') * 0x10;
+		returnval = (10 + (unsigned char)tolower(highbyte) -'a') * 0x10;
 	}
 	
 	if (isdigit(lowbyte)) {
 		returnval += (lowbyte - '0');
 	}
 	else {
-		returnval += (10 + lowbyte -'a');
+		returnval += (10 + tolower(lowbyte) -'a');
 	}
 	
 	return returnval;
