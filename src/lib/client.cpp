@@ -97,7 +97,7 @@ vlpp::client::client_impl::client_impl(const std::string &servername, const std:
 
 void vlpp::client::client_impl::authenticate(const std::string &token) {
 	assert(token.length() == TOKEN_SIZE);
-	std::array<char,TOKEN_SIZE> auth_data;
+	std::array<char,TOKEN_SIZE+1> auth_data;
 	auth_data[0] = OP_AUTHENTICATE;
 	for (size_t i = 0; i < TOKEN_SIZE; ++i) {
 		auth_data[i+1] = (char)token[i];
