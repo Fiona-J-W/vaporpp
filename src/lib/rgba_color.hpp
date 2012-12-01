@@ -20,6 +20,7 @@
 
 #include <cstdint>
 #include <string>
+#include <ostream>
 
 namespace vlpp {
 
@@ -83,4 +84,14 @@ class rgba_color {
 };
 
 }
+
+/**
+ * @brief Writes an rgba-color to a stream
+ * @param stream the stream
+ * @param col the color
+ * @return the original stream
+ */
+std::ostream& operator<<(std::ostream& stream, const vlpp::rgba_color& col);
+
+
 #endif // RGBA_COLOR_HPP

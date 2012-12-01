@@ -20,6 +20,7 @@
 
 #include <stdexcept>
 #include <cctype>
+#include <iomanip>
 
 //private function to convert two hex-characters to a byte:
 uint8_t hex_to_byte(char highbyte, char lowbyte);
@@ -69,4 +70,10 @@ uint8_t hex_to_byte(char highbyte, char lowbyte) {
 	}
 	
 	return returnval;
+}
+
+
+std::ostream& operator<<(std::ostream& stream, const vlpp::rgba_color& col){
+	stream << std::hex << std::setw(2) << "#" << (int)col.r << (int)col.g << (int)col.b << (int)col.alpha;
+	return stream;
 }

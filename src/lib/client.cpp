@@ -65,7 +65,7 @@ void vlpp::client::set_led(uint16_t led_id, const rgba_color &col) {
 }
 
 void vlpp::client::set_leds(const std::vector<uint16_t> &led_ids, const rgba_color &col) {
-for (auto led: led_ids) {
+	for (auto led: led_ids) {
 		set_led(led, col);
 	}
 }

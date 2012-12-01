@@ -32,7 +32,9 @@ namespace vlpp {
 /**
  * @brief The client class, used to connect to the server.
  *
- * This class provides the usual interface used to communicate with the server.
+ * This class provides a low-level-interface used to communicate with the server.
+ *
+ * Note that using this class is NOT threadsafe.
  */
 class client {
 	public:
@@ -40,7 +42,7 @@ class client {
 		/**
 		 * @brief the default port
 		 */
-	enum: uint16_t { DEFAULT_PORT = 7534 };
+		enum: uint16_t { DEFAULT_PORT = 7534 };
 		
 		/**
 		 * @brief Constructs an instance, connects to the specified server and authenticates there.
